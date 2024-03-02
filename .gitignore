@@ -1,0 +1,5 @@
+.vscode
+build
+.qmake.stash
+/*.cpp
+Makefile

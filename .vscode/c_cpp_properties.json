@@ -1,0 +1,18 @@
+{
+    "configurations": [
+        {
+            "name": "g++",
+            "includePath": [
+                "${workspaceFolder}/src/**",
+                "/opt/buildroot/output/host/usr/include/**",
+                "/opt/qt5/include/**"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "gcc-arm"
+        }
+    ],
+    "version": 4
+}
