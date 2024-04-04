@@ -76,7 +76,7 @@ QList<QCanBusDevice::Filter> filter() {
 
 	QList<QCanBusDevice::Filter> filterList;
 
-	for(unsigned i = MS3X_MEGASQUIRT_GP0_FRAME_ID; i <= MS3X_MEGASQUIRT_GP17_FRAME_ID; i++) {
+	for(unsigned i = R3_GROUP0_FRAME_ID; i <= R3_GROUP39_FRAME_ID; i++) {
         filter.frameId = i;
         filterList.append(filter);
     }

@@ -11,7 +11,6 @@
 #include "MenuItem.h"
 #include "../Encoder/Encoder.h"
 #include "../Util/canutil.h"
-#include "../dbc/ms3x.h"
 #include "../dbc/tcs.h"
 
 class Navigation : public QObject {

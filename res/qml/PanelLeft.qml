@@ -12,7 +12,7 @@ Item {
 		}
 
 		function onAfrChanged(value) {
-			afrGuage.value = value;
+			afrGuage.value = value * 14.7;
 		}
 	}
 

@@ -11,8 +11,8 @@ Item {
 			clutchGuage.value = value;
 		}
 
-		function onAdvanceChanged(value) {
-			advanceGuage.value = value;
+		function onOilChanged(value) {
+			oilGuage.value = value / 6.89476;
 		}
 	}
 
@@ -54,18 +54,18 @@ Item {
 	}
 
 	Guage {
-		id: advanceGuage
+		id: oilGuage
 
 		width: 300
 		anchors.top: clutchGuage.bottom
 		anchors.right: rightPanel.right
 		anchors.topMargin: 20
 
-		minimum: -50; maximum: 50
+		minimum: 0; maximum: 150
 		decimals: 0
 
-		label: "ADVANCE"
-		units: "°"
+		label: "OIL"
+		units: "PSI"
 
 		forceOne: false
 		alignRight: true

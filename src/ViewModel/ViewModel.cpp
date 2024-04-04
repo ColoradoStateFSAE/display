@@ -50,7 +50,7 @@ ViewModel::ViewModel(Navigation &navigation, QObject* parent) : QObject(parent),
 			emit ecuOffline(false);
 			emit gearChanged(gear);
 			emit rpmChanged(rpm);
-			emit advanceChanged(advance);
+			emit oilChanged(oil);
 			emit coolantChanged(coolant);
 			emit tpsChanged(tps);
 			emit batteryChanged(battery);
@@ -117,58 +117,63 @@ void ViewModel::frameReceived(const QCanBusFrame &frame) {
 			gear = tcs_gear_gear_decode(message.gear);
 			break;
 		}
-		
-		case MS3X_MEGASQUIRT_GP0_FRAME_ID: {
-			lastCanUpdate = time.elapsed();
-			ms3x_megasquirt_gp0_t message;
-			ms3x_megasquirt_gp0_unpack(&message, data, sizeof(message));
-			
-			rpm = ms3x_megasquirt_gp0_rpm_decode(message.rpm);
-			break;
-		}
-		
-		case MS3X_MEGASQUIRT_GP1_FRAME_ID: {
-			ms3x_megasquirt_gp1_t message;
-			ms3x_megasquirt_gp1_unpack(&message, data, sizeof(message));
-			
-			advance = ms3x_megasquirt_gp1_adv_deg_decode(message.adv_deg);
-			break;
-		}
-			
-		case MS3X_MEGASQUIRT_GP2_FRAME_ID: {
-			ms3x_megasquirt_gp2_t message;
-			ms3x_megasquirt_gp2_unpack(&message, data, sizeof(message));
-			
-			coolant = ms3x_megasquirt_gp2_clt_decode(message.clt);
-			break;
-		}
-			
-		case MS3X_MEGASQUIRT_GP3_FRAME_ID: {
-			ms3x_megasquirt_gp3_t message;
-			ms3x_megasquirt_gp3_unpack(&message, data, sizeof(message));
-			
-			battery = ms3x_megasquirt_gp3_batt_decode(message.batt);
-			tps = ms3x_megasquirt_gp3_tps_decode(message.tps);
-			break;
-		}
-			
-		case MS3X_MEGASQUIRT_GP31_FRAME_ID: {
-			ms3x_megasquirt_gp31_t message;
-			ms3x_megasquirt_gp31_unpack(&message, data, sizeof(message));
-			
-			afr = ms3x_megasquirt_gp31_afr1_decode(message.afr1);
-			break;
-		}
-		
+
 		case TCS_CLUTCH_FRAME_ID: {
 			tcs_clutch_t message;
 			tcs_clutch_unpack(&message, data, sizeof(message));
 
 			clutch = tcs_clutch_position_percentage_decode(message.position_percentage);
 			break;
-		}	
+		}
+		
+		case R3_GROUP0_FRAME_ID: {
+			lastCanUpdate = time.elapsed();
+			r3_group0_t message;
+			r3_group0_unpack(&message, data, sizeof(message));
+			
+			rpm = r3_group0_rpm_decode(message.rpm);
+			tps = r3_group0_throttle_position_decode(message.throttle_position);
+			break;
+		}
+		
+		case R3_GROUP1_FRAME_ID: {
+			r3_group1_t message;
+			r3_group1_unpack(&message, data, sizeof(message));
+			
+			oil = r3_group1_oil_pressure_decode(message.oil_pressure);
+			break;
+		}
+
+		case R3_GROUP15_FRAME_ID: {
+			r3_group15_t message;
+			r3_group15_unpack(&message, data, sizeof(message));
+			
+			battery = r3_group15_battery_voltage_decode(message.battery_voltage);
+			break;
+		}
+
+		case R3_GROUP20_FRAME_ID: {
+			r3_group20_t message;
+			r3_group20_unpack(&message, data, sizeof(message));
+			
+			coolant = r3_group20_coolant_temperature_decode(message.coolant_temperature);
+			break;
+		}
+
+		case R3_GROUP24_FRAME_ID: {
+			r3_group24_t message;
+			r3_group24_unpack(&message, data, sizeof(message));
+			
+			neutral = r3_group24_neutral_switch_decode(message.neutral_switch);
+			break;
+		}
 	}
 	
+	if(neutral) {
+		gear = 0;
+	} else {
+		gear = 1;
+	}
 	// logFrame(frame);
 }
 
