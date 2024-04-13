@@ -108,19 +108,11 @@ void ViewModel::frameReceived(const QCanBusFrame &frame) {
 			}
 			break;
 		}
-			
-		case TCS_GEAR_FRAME_ID: {
-			lastShiftUpdate = time.elapsed();
-			tcs_gear_t message;
-			tcs_gear_unpack(&message, data, sizeof(message));
-			
-			gear = tcs_gear_gear_decode(message.gear);
-			break;
-		}
 
 		case TCS_CLUTCH_FRAME_ID: {
+			lastShiftUpdate = time.elapsed();
 			tcs_clutch_t message;
-			tcs_clutch_unpack(&message, data, sizeof(message));
+			tcs_clutch_unpack(&message, data, frame.payload().size());
 
 			clutch = tcs_clutch_position_percentage_decode(message.position_percentage);
 			break;
@@ -129,7 +121,7 @@ void ViewModel::frameReceived(const QCanBusFrame &frame) {
 		case R3_GROUP0_FRAME_ID: {
 			lastCanUpdate = time.elapsed();
 			r3_group0_t message;
-			r3_group0_unpack(&message, data, sizeof(message));
+			r3_group0_unpack(&message, data, frame.payload().size());
 			
 			rpm = r3_group0_rpm_decode(message.rpm);
 			tps = r3_group0_throttle_position_decode(message.throttle_position);
@@ -138,31 +130,35 @@ void ViewModel::frameReceived(const QCanBusFrame &frame) {
 		
 		case R3_GROUP1_FRAME_ID: {
 			r3_group1_t message;
-			r3_group1_unpack(&message, data, sizeof(message));
+			r3_group1_unpack(&message, data, frame.payload().size());
 			
 			oil = r3_group1_oil_pressure_decode(message.oil_pressure);
+			oil = convert::kpa_to_psi(oil);
 			break;
 		}
 
 		case R3_GROUP15_FRAME_ID: {
 			r3_group15_t message;
-			r3_group15_unpack(&message, data, sizeof(message));
-			
+			r3_group15_unpack(&message, data, frame.payload().size());
+			auto data = reinterpret_cast<const uint8_t*>(frame.payload().constData());
+			size_t dataLength = frame.payload().size();
+
 			battery = r3_group15_battery_voltage_decode(message.battery_voltage);
 			break;
 		}
 
 		case R3_GROUP20_FRAME_ID: {
 			r3_group20_t message;
-			r3_group20_unpack(&message, data, sizeof(message));
+			r3_group20_unpack(&message, data, frame.payload().size());
 			
 			coolant = r3_group20_coolant_temperature_decode(message.coolant_temperature);
+			coolant = convert::k_to_f(coolant);
 			break;
 		}
 
 		case R3_GROUP24_FRAME_ID: {
 			r3_group24_t message;
-			r3_group24_unpack(&message, data, sizeof(message));
+			r3_group24_unpack(&message, data, frame.payload().size());
 			
 			neutral = r3_group24_neutral_switch_decode(message.neutral_switch);
 			break;

@@ -12,6 +12,7 @@
 #include "../Motion/Motion.h"
 #include "../dbc/r3.h"
 #include "../dbc/tcs.h"
+#include "../Util/convert.h"
 
 #include <QQuickWindow>
 #include <QScreen>

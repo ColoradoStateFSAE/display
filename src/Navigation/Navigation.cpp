@@ -110,7 +110,7 @@ void Navigation::frameReceived(const QCanBusFrame &frame) {
 	switch(frame.frameId()) {
 		case TCS_SHIFT_SETTINGS_FRAME_ID: {
 			tcs_shift_settings_t message;
-			tcs_shift_settings_unpack(&message, data, sizeof(message));
+			tcs_shift_settings_unpack(&message, data, frame.payload().size());
 			upDelay.value = tcs_shift_settings_up_delay_decode(message.up_delay);
 			downDelay.value = tcs_shift_settings_down_delay_decode(message.down_delay);
 			output.value = tcs_shift_settings_output_decode(message.output);
@@ -120,7 +120,7 @@ void Navigation::frameReceived(const QCanBusFrame &frame) {
 		
 		case TCS_CLUTCH_SETTINGS_FRAME_ID: {
 			tcs_clutch_settings_t message;
-			tcs_clutch_settings_unpack(&message, data, sizeof(message));
+			tcs_clutch_settings_unpack(&message, data, frame.payload().size());
 			start.value = tcs_clutch_settings_start_decode(message.start);
 			end.value = tcs_clutch_settings_end_decode(message.end);
 			friction.value = tcs_clutch_settings_friction_decode(message.friction);
@@ -130,7 +130,7 @@ void Navigation::frameReceived(const QCanBusFrame &frame) {
 			
 		case TCS_CLUTCH_FRAME_ID: {
 			tcs_clutch_t message;
-			tcs_clutch_unpack(&message, data, sizeof(message));
+			tcs_clutch_unpack(&message, data, frame.payload().size());
 			position.value = tcs_clutch_position_decode(message.position);
 			break;
 		}
