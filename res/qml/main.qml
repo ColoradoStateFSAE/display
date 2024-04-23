@@ -36,7 +36,7 @@ Window {
 				if(value === 0) {
 					gear.text = "N";
 				} else {
-					gear.text = value
+					gear.text = "?"
 				}
 			}
 		}

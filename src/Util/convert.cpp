@@ -6,6 +6,6 @@ namespace convert {
 	}
 
 	double kpa_to_psi(double value) {
-		return value * 0.145038;
+		return value / 6.895;
 	}
 }

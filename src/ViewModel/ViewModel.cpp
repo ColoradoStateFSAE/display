@@ -133,7 +133,7 @@ void ViewModel::frameReceived(const QCanBusFrame &frame) {
 			r3_group1_unpack(&message, data, frame.payload().size());
 			
 			oil = r3_group1_oil_pressure_decode(message.oil_pressure);
-			oil = convert::kpa_to_psi(oil);
+			// oil = convert::kpa_to_psi(oil);
 			break;
 		}
 
