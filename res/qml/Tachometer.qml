@@ -8,8 +8,8 @@ Item {
 
 	width: 800
 	height: 140
-	property real value: 12000
-	property real valueMax: 12000
+	property real value: 14000
+	property real valueMax: 14000
 	property int n: 100
 	property int margin: 3
 	property int marginY: 30
@@ -49,11 +49,11 @@ Item {
 
 		Repeater {
 			id: numbers
-			model: 13
+			model: 15
 
 			delegate: Rectangle {
 				id: rect
-				x: index * (parent.width / 12) - width / 2
+				x: index * (parent.width / 14) - width / 2
 				y: 44
 
 				width: 8
