@@ -1,0 +1,27 @@
+<RCC>
+	<qresource prefix="/">
+		<file>font/gram_bold.ttf</file>
+		<file>font/heebo_bold.ttf</file>
+		<file>icon/about.png</file>
+		<file>icon/battery.png</file>
+		<file>icon/close.png</file>
+		<file>icon/coolant.png</file>
+		<file>icon/error.png</file>
+		<file>icon/servo.png</file>
+		<file>icon/shift.png</file>
+		<file>image/spheres.png</file>
+		<file>qml/Error/EcuOffline.qml</file>
+		<file>qml/Error/ShiftingSystemOffline.qml</file>
+		<file>qml/Guage.qml</file>
+		<file>qml/main.qml</file>
+		<file>qml/PanelLeft.qml</file>
+		<file>qml/PanelRight.qml</file>
+		<file>qml/Tachometer.qml</file>
+		<file>qml/TaskSwitcher/About.qml</file>
+		<file>qml/TaskSwitcher/Clutch.qml</file>
+		<file>qml/TaskSwitcher/Heading.qml</file>
+		<file>qml/TaskSwitcher/ShiftTiming.qml</file>
+		<file>qml/TaskSwitcher/Task.qml</file>
+		<file>qml/TaskSwitcher/TaskSwitcher.qml</file>
+	</qresource>
+</RCC>
