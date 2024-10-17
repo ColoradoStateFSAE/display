@@ -25,12 +25,6 @@ ViewModel::ViewModel(Navigation &navigation, QObject* parent) : QObject(parent),
 	// GPS
 	Gps gps(filename);
 	
-	// Motion
-	Motion *motion = new Motion(filename);
-	QObject::connect(&motionThread, &QThread::started, motion, &Motion::start);
-	motion->moveToThread(&motionThread);
-	motionThread.start();
-	
 	// Update the screen every 17 ms
 	QTimer *timer = new QTimer(this);
 	connect(timer, &QTimer::timeout, [&]() {
@@ -133,7 +127,14 @@ void ViewModel::frameReceived(const QCanBusFrame &frame) {
 			r3_group1_unpack(&message, data, frame.payload().size());
 			
 			oil = r3_group1_oil_pressure_decode(message.oil_pressure);
-			// oil = convert::kpa_to_psi(oil);
+			break;
+		}
+
+        case R3_GROUP5_FRAME_ID: {
+			r3_group5_t message;
+			r3_group5_unpack(&message, data, frame.payload().size());
+			
+			afr = r3_group1_oil_pressure_decode(message.wideband_sensor_1);
 			break;
 		}
 
@@ -165,10 +166,8 @@ void ViewModel::frameReceived(const QCanBusFrame &frame) {
 		}
 	}
 	
-	if(neutral) {
+	if(neutral == 1) {
 		gear = 0;
-	} else {
-		gear = 1;
 	}
 	// logFrame(frame);
 }
