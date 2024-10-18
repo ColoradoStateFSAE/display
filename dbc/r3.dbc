@@ -1,0 +1,132 @@
+VERSION ""
+
+
+NS_ : 
+	NS_DESC_
+	CM_
+	BA_DEF_
+	BA_
+	VAL_
+	CAT_DEF_
+	CAT_
+	FILTER
+	BA_DEF_DEF_
+	EV_DATA_
+	ENVVAR_DATA_
+	SGTYPE_
+	SGTYPE_VAL_
+	BA_DEF_SGTYPE_
+	BA_SGTYPE_
+	SIG_TYPE_REF_
+	VAL_TABLE_
+	SIG_GROUP_
+	SIG_VALTYPE_
+	SIGTYPE_VALTYPE_
+	BO_TX_BU_
+	BA_DEF_REL_
+	BA_REL_
+	BA_DEF_DEF_REL_
+	BU_SG_REL_
+	BU_EV_REL_
+	BU_BO_REL_
+	SG_MUL_VAL_
+
+BS_:
+
+BU_:
+
+
+BO_ 1137 group40: 8 Vector__XXX
+ SG_ exhaust_manifold_pres : 39|16@0+ (0.1,0) [0|0] "kPa" Vector__XXX
+ SG_ apps : 23|16@0+ (0.1,0) [0|0] "%" Vector__XXX
+ SG_ inj_pres_diff : 7|16@0- (0.1,0) [0|0] "kPa" Vector__XXX
+
+BO_ 992 group20: 8 Vector__XXX
+ SG_ oil_temperature : 55|16@0+ (0.1,0) [0|0] "K" Vector__XXX
+ SG_ fuel_temperature : 39|16@0+ (0.1,0) [0|0] "K" Vector__XXX
+ SG_ air_temperature : 23|16@0+ (0.1,0) [0|0] "K" Vector__XXX
+ SG_ coolant_temperature : 7|16@0+ (0.1,0) [0|0] "K" Vector__XXX
+
+BO_ 996 group24: 8 Vector__XXX
+ SG_ clutch_switch : 9|1@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ check_engine_light : 63|1@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ flat_shift_switch : 19|1@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ oil_pressure_light : 8|1@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ gear_switch : 13|1@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ neutral_switch : 15|1@0+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 882 group15: 8 Vector__XXX
+ SG_ barometric_pressure : 55|16@0+ (0.1,0) [0|0] "kPa (Abs)" Vector__XXX
+ SG_ target_boost_level : 39|16@0+ (0.1,0) [0|0] "kPa" Vector__XXX
+ SG_ battery_voltage : 7|16@0+ (0.1,0) [0|0] "Volts" Vector__XXX
+
+BO_ 1136 group39: 8 Vector__XXX
+ SG_ gear : 63|8@0- (1,0) [0|0] "" Vector__XXX
+ SG_ gear_selector_position : 55|8@0- (1,0) [0|0] "" Vector__XXX
+ SG_ wideband_bank_2 : 39|16@0+ (0.001,0) [0|0] "Lambda" Vector__XXX
+ SG_ wideband_bank_1 : 23|16@0+ (0.001,0) [0|0] "Lambda" Vector__XXX
+ SG_ wideband_overall : 7|16@0+ (0.001,0) [0|0] "Lambda" Vector__XXX
+
+BO_ 880 group13: 8 Vector__XXX
+ SG_ intake_cam_angle_2 : 55|16@0- (0.1,0) [0|0] "°" Vector__XXX
+ SG_ intake_cam_angle_1 : 39|16@0- (0.1,0) [0|0] "°" Vector__XXX
+ SG_ vehicle_speed : 7|16@0+ (0.1,0) [0|0] "km/h" Vector__XXX
+
+BO_ 872 group5: 8 Vector__XXX
+ SG_ wideband_sensor_4 : 55|16@0+ (0.001,0) [0|0] "Lambda" Vector__XXX
+ SG_ wideband_sensor_3 : 39|16@0+ (0.001,0) [0|0] "Lambda" Vector__XXX
+ SG_ wideband_sensor_2 : 23|16@0+ (0.001,0) [0|0] "Lambda" Vector__XXX
+ SG_ wideband_sensor_1 : 7|16@0+ (0.001,0) [0|0] "Lambda" Vector__XXX
+
+BO_ 865 group1: 8 Vector__XXX
+ SG_ wastegate_pressure : 55|16@0+ (0.1,-101.3) [0|0] "kPa" Vector__XXX
+ SG_ engine_demand : 39|16@0+ (0.1,0) [0|0] "%" Vector__XXX
+ SG_ oil_pressure : 23|16@0+ (0.1,-101.3) [0|0] "kPa" Vector__XXX
+ SG_ fuel_pressure : 7|16@0+ (0.1,-101.3) [0|0] "kPa" Vector__XXX
+
+BO_ 864 group0: 8 Vector__XXX
+ SG_ coolant_pressure : 55|16@0+ (0.1,-101.3) [0|0] "kPa" Vector__XXX
+ SG_ throttle_position : 39|16@0+ (0.1,0) [0|0] "%" Vector__XXX
+ SG_ manifold_pressure : 23|16@0+ (0.1,0) [0|0] "kPa (Abs)" Vector__XXX
+ SG_ rpm : 7|16@0+ (1,0) [0|0] "RPM" Vector__XXX
+
+
+
+CM_ SG_ 992 oil_temperature "20-04";
+CM_ SG_ 992 fuel_temperature "20-03";
+CM_ SG_ 992 air_temperature "20-02";
+CM_ SG_ 992 coolant_temperature "20-01";
+CM_ SG_ 996 clutch_switch "24-07";
+CM_ SG_ 996 check_engine_light "24-25";
+CM_ SG_ 996 flat_shift_switch "24-12";
+CM_ SG_ 996 oil_pressure_light "24-08";
+CM_ SG_ 996 gear_switch "24-03";
+CM_ SG_ 996 neutral_switch "24-01";
+CM_ SG_ 882 barometric_pressure "15-03";
+CM_ SG_ 882 target_boost_level "15-02";
+CM_ SG_ 882 battery_voltage "15-01";
+CM_ SG_ 1136 gear "39-05";
+CM_ SG_ 1136 gear_selector_position "39-04";
+CM_ SG_ 1136 wideband_bank_2 "39-03";
+CM_ SG_ 1136 wideband_bank_1 "39-02";
+CM_ SG_ 1136 wideband_overall "39-01";
+CM_ SG_ 880 intake_cam_angle_2 "13-03";
+CM_ SG_ 880 intake_cam_angle_1 "13-02";
+CM_ SG_ 880 vehicle_speed "13-01";
+CM_ SG_ 872 wideband_sensor_4 "05-04";
+CM_ SG_ 872 wideband_sensor_3 "05-03";
+CM_ SG_ 872 wideband_sensor_2 "05-02";
+CM_ SG_ 872 wideband_sensor_1 "05-01";
+CM_ SG_ 865 wastegate_pressure "01-04";
+CM_ SG_ 865 engine_demand "01-03";
+CM_ SG_ 865 oil_pressure "01-02";
+CM_ SG_ 865 fuel_pressure "01-01";
+CM_ SG_ 864 coolant_pressure "00-04";
+CM_ SG_ 864 throttle_position "00-03";
+CM_ SG_ 864 manifold_pressure "00-02";
+CM_ SG_ 864 rpm "00-01";
+BA_DEF_  "MultiplexExtEnabled" ENUM  "No","Yes";
+BA_DEF_  "BusType" STRING ;
+BA_DEF_DEF_  "MultiplexExtEnabled" "No";
+BA_DEF_DEF_  "BusType" "CAN";
+
