@@ -21,8 +21,8 @@ Gps::Gps(string filename) {
 	QObject::connect(&serial, &QSerialPort::readyRead, [&]() {
 		while(serial.canReadLine()) {
 			QByteArray data = serial.readAll();
-				gpsFile << data.toStdString();
-				gpsFile.flush();
+            gpsFile << data.toStdString();
+            gpsFile.flush();
 		}
 	});
 }
