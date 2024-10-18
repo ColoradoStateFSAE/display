@@ -4,14 +4,14 @@ using namespace std;
 
 Gps::Gps(string filename) {
 	serial.setPortName("ttyS0");
-	serial.setBaudRate(QSerialPort::Baud9600);
+	serial.setBaudRate(460800);
 	serial.setDataBits(QSerialPort::Data8);
 	serial.setParity(QSerialPort::NoParity);
 	serial.setStopBits(QSerialPort::OneStop);
 	serial.setFlowControl(QSerialPort::NoFlowControl);
 	
 	if (!serial.open(QIODevice::ReadOnly)) {
-		qDebug() << "Failed to open serial port";
+		qDebug() << "GPS: Failed to open serial port";
 		return;
 	}
 	
@@ -19,13 +19,10 @@ Gps::Gps(string filename) {
 	gpsFile = ofstream(gpsFilename, ios::app);
 	
 	QObject::connect(&serial, &QSerialPort::readyRead, [&]() {
-		while (serial.canReadLine()) {
+		while(serial.canReadLine()) {
 			QByteArray data = serial.readAll();
-			
-			if(data.startsWith("$GPRMC")) {
 				gpsFile << data.toStdString();
 				gpsFile.flush();
-			}
 		}
 	});
 }
