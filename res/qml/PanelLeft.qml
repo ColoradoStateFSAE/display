@@ -7,8 +7,8 @@ Item {
 		function onBatteryChanged(value) {
 			batteryGuage.value = value;
 		}
-		function onTpsChanged(value) {
-			tpsGuage.value = value;
+		function onAppsChanged(value) {
+			appsGuage.value = value;
 		}
 
 		function onAfrChanged(value) {
@@ -35,7 +35,7 @@ Item {
 	}
 
 	Guage {
-		id: tpsGuage
+		id: appsGuage
 
 		width: 320
 		anchors.top: batteryGuage.bottom
@@ -45,7 +45,7 @@ Item {
 		minimum: 0; maximum: 100
 		decimals: 0
 
-		label: "TPS"
+		label: "APPS"
 		units: "%"
 		forceOne: false
 	}
@@ -54,7 +54,7 @@ Item {
 		id: afrGuage
 
 		width: 300
-		anchors.top: tpsGuage.bottom
+		anchors.top: appsGuage.bottom
 		anchors.left: parent.left
 		anchors.topMargin: 20
 
