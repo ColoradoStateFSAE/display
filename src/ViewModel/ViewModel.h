@@ -27,6 +27,7 @@ signals:
 	void batteryChanged(float value);
 	void coolantChanged(float value);
 	void tpsChanged(float value);
+	void appsChanged(float value);
 	void afrChanged(float value);
 	void clutchChanged(float value);
 	void oilChanged(float value);
@@ -54,6 +55,7 @@ private:
 	float battery = 0;
 	float coolant = 0;
 	float tps = 0;
+	float apps = 0;
 	float afr = 0;
 	float clutch = 0;
 	float oil = 0;

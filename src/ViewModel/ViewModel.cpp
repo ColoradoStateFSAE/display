@@ -47,6 +47,7 @@ ViewModel::ViewModel(Navigation &navigation, QObject* parent) : QObject(parent),
 			emit oilChanged(oil);
 			emit coolantChanged(coolant);
 			emit tpsChanged(tps);
+			emit appsChanged(apps);
 			emit batteryChanged(battery);
 			emit afrChanged(afr);
 			emit clutchChanged(clutch);
@@ -134,7 +135,7 @@ void ViewModel::frameReceived(const QCanBusFrame &frame) {
 			r3_group5_t message;
 			r3_group5_unpack(&message, data, frame.payload().size());
 			
-			afr = r3_group1_oil_pressure_decode(message.wideband_sensor_1);
+			afr = r3_group5_wideband_sensor_1_decode(message.wideband_sensor_1);
 			break;
 		}
 
@@ -162,6 +163,22 @@ void ViewModel::frameReceived(const QCanBusFrame &frame) {
 			r3_group24_unpack(&message, data, frame.payload().size());
 			
 			neutral = r3_group24_neutral_switch_decode(message.neutral_switch);
+			break;
+		}
+
+		case R3_GROUP39_FRAME_ID: {
+			r3_group39_t message;
+			r3_group39_unpack(&message, data, frame.payload().size());
+			
+			gear = r3_group39_gear_decode(message.gear);
+			break;
+		}
+
+		case R3_GROUP40_FRAME_ID: {
+			r3_group40_t message;
+			r3_group40_unpack(&message, data, frame.payload().size());
+			
+			apps = r3_group40_apps_decode(message.apps);
 			break;
 		}
 	}
