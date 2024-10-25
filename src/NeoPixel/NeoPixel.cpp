@@ -82,15 +82,12 @@ void NeoPixel::start() {
 				if (active_pixels <= 0) break;
 				
 				for (int i = 0; i < active_pixels; ++i) {
-					if (i < 3) {
+					if (i < 4) {
 						ledString.channel[0].leds[i] = RED;
-						ledString.channel[0].leds[n-i] = RED;
-					} else if (i < 6) {
-						ledString.channel[0].leds[i] = BLUE;
-						ledString.channel[0].leds[n-i] = BLUE;
 					} else if (i < 8) {
+						ledString.channel[0].leds[i] = BLUE;
+					} else if (i < 12) {
 						ledString.channel[0].leds[i] = GREEN;
-						ledString.channel[0].leds[n-i] = GREEN;
 					}
 				}
 				
