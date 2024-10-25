@@ -35,8 +35,11 @@ Window {
 			if(gear.value !== value) {
 				if(value === 0) {
 					gear.text = "N";
-				} else {
-					gear.text = "?"
+				} else if (value < 6 || value > 0){
+					gear.text = value;
+				} 
+				else {
+					gear.text = "<(0_0)>";
 				}
 			}
 		}

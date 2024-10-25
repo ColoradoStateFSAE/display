@@ -134,7 +134,7 @@ void ViewModel::frameReceived(const QCanBusFrame &frame) {
 			r3_group5_t message;
 			r3_group5_unpack(&message, data, frame.payload().size());
 			
-			afr = r3_group1_oil_pressure_decode(message.wideband_sensor_1);
+			afr = r3_group5_wideband_sensor_1_decode(message.wideband_sensor_1);
 			break;
 		}
 
@@ -162,6 +162,14 @@ void ViewModel::frameReceived(const QCanBusFrame &frame) {
 			r3_group24_unpack(&message, data, frame.payload().size());
 			
 			neutral = r3_group24_neutral_switch_decode(message.neutral_switch);
+			break;
+		}
+
+		case R3_GROUP39_FRAME_ID: {
+			r3_group39_t message;
+			r3_group39_unpack(&message, data, frame.payload().size());
+			
+			gear = r3_group39_gear_decode(message.gear);
 			break;
 		}
 	}
