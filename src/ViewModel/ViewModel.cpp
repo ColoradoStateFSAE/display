@@ -12,7 +12,7 @@ ViewModel::ViewModel(Navigation &navigation, QObject* parent) : QObject(parent),
 	canFile = ofstream(canFilename, ios::app);
 	
 	// // NeoPixel
-	NeoPixel *neoPixel = new NeoPixel(7000, 9200);
+	NeoPixel *neoPixel = new NeoPixel(8000, 13000);
 	QObject::connect(&neoPixelThread, &QThread::started, neoPixel, &NeoPixel::start);
 	neoPixel->moveToThread(&neoPixelThread);
 	neoPixelThread.start();
