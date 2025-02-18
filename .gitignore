@@ -4,3 +4,7 @@ build
 .qmake.stash
 /*.cpp
 Makefile
+src/dbc/r3.c
+src/dbc/r3.h
+src/dbc/tcs.c
+src/dbc/tcs.h
