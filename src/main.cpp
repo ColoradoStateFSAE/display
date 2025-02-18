@@ -68,30 +68,6 @@ void setDeviceProperties(QQmlApplicationEngine &engine) {
 	engine.rootContext()->setContextProperty(QStringLiteral("DISPLAY"), display);
 }
 
-QList<QCanBusDevice::Filter> filter() {
-	QCanBusDevice::Filter filter;
-	filter.type = QCanBusFrame::DataFrame;
-	filter.format = QCanBusDevice::Filter::MatchBaseFormat;
-	filter.frameIdMask = 0x7FF;
-
-	QList<QCanBusDevice::Filter> filterList;
-
-	for(unsigned i = R3_GROUP0_FRAME_ID; i <= R3_GROUP39_FRAME_ID; i++) {
-        filter.frameId = i;
-        filterList.append(filter);
-    }
-
-	for(unsigned i = TCS_GEAR_FRAME_ID; i <= TCS_ANALOG_INPUT_FRAME_ID; i++) {
-        filter.frameId = i;
-        filterList.append(filter);
-    }
-
-	filter.frameId = 0x6A4;
-	filterList.append(filter);
-
-	return filterList;
-}
-
 void screenshot(QQmlApplicationEngine &engine) {
 	QTimer::singleShot(2000, [&](){
 		foreach(QObject *obj, engine.rootObjects()) {
@@ -114,7 +90,6 @@ int main(int argc, char *argv[]) {
 	QString errorString;
 	QCanBusDevice *device = QCanBus::instance()->createDevice(QStringLiteral("socketcan"), QStringLiteral("can0"), &errorString);
 	device->setConfigurationParameter(QCanBusDevice::BitRateKey, QVariant());
-	device->setConfigurationParameter(QCanBusDevice::RawFilterKey, QVariant::fromValue(filter()));
 	device->connectDevice();
 
 	Navigation navigation(device);
