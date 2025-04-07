@@ -118,21 +118,21 @@ void ViewModel::frameReceived(const QCanBusFrame &frame) {
 			break;
 		}
 		
-		case R3_GROUP0_FRAME_ID: {
+		case R3_GROUP00_FRAME_ID: {
 			lastCanUpdate = time.elapsed();
-			r3_group0_t message;
-			r3_group0_unpack(&message, data, frame.payload().size());
+			r3_group00_t message;
+			r3_group00_unpack(&message, data, frame.payload().size());
 			
-			rpm = r3_group0_rpm_decode(message.rpm);
-			tps = r3_group0_throttle_position_decode(message.throttle_position);
+			rpm = r3_group00_rpm_decode(message.rpm);
+			tps = r3_group00_throttle_position_decode(message.throttle_position);
 			break;
 		}
 		
-		case R3_GROUP1_FRAME_ID: {
-			r3_group1_t message;
-			r3_group1_unpack(&message, data, frame.payload().size());
+		case R3_GROUP01_FRAME_ID: {
+			r3_group01_t message;
+			r3_group01_unpack(&message, data, frame.payload().size());
 			
-			oil = r3_group1_oil_pressure_decode(message.oil_pressure);
+			oil = r3_group01_oil_pressure_decode(message.oil_pressure);
 			// oil = convert::kpa_to_psi(oil);
 			break;
 		}
@@ -163,12 +163,17 @@ void ViewModel::frameReceived(const QCanBusFrame &frame) {
 			neutral = r3_group24_neutral_switch_decode(message.neutral_switch);
 			break;
 		}
+		case R3_GROUP39_FRAME_ID: {
+			r3_group39_t message;
+			r3_group39_unpack(&message, data, frame.payload().size());
+			
+			gear = r3_group39_gear_decode(message.gear);
+			break;
+		}
 	}
 	
 	if(neutral) {
 		gear = 0;
-	} else {
-		gear = 1;
 	}
 	// logFrame(frame);
 }
