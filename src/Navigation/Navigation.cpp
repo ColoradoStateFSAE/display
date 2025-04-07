@@ -59,6 +59,9 @@ void Navigation::configureNavigation() {
 		shift.next = &clutch;
 
 		clutch.previous = &shift;
+		clutch.next = &settings;
+		
+		settings.previous = &clutch;
 
 		// Shift
 		upDelay.previous = &shift;
@@ -86,6 +89,10 @@ void Navigation::configureNavigation() {
 		position.next = &autoLaunch;
 
 		autoLaunch.previous = &position;
+
+		// Settings
+		brightness.previous = &settings;
+		
 	}
 
 void Navigation::startUpdates() {
@@ -135,6 +142,10 @@ void Navigation::frameReceived(const QCanBusFrame &frame) {
 			break;
 		}
 	}
+}
+
+void Navigation::setBrightness(int value) {
+	setBrightness(value);
 }
 
 void Navigation::setShiftValues() {

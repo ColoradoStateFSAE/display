@@ -68,12 +68,23 @@ Item {
 		]
 	}
 
+	Settings {
+		anchors.horizontalCenter: parent.horizontalCenter
+		anchors.top: parent.top
+		anchors.topMargin: topSpacing
+
+		tasks: [
+			Navigation.SETTINGS,
+			Navigation.BRIGHTNESS
+		]
+	}
+
 	Heading {
 		id: exit
 		anchors.left: parent.left
 		anchors.bottom: parent.bottom
 		anchors.leftMargin: 60
-		anchors.bottomMargin: 60
+		anchors.bottomMargin: 30
 		icon: "qrc:/icon/close.png"
 		taskId: Navigation.EXIT
 	}
@@ -109,5 +120,16 @@ Item {
 		headingColor: "#ff2d55"
 		icon: "qrc:/icon/servo.png"
 		taskId: Navigation.CLUTCH
+	}
+
+		Heading {
+		id: settings
+		anchors.left: parent.left
+		anchors.bottom: clutch.top
+		anchors.leftMargin: 60
+		anchors.bottomMargin: 10
+		headingColor: "#FFDF2B"
+		icon: "qrc:/icon/shift.png"
+		taskId: Navigation.SETTINGS
 	}
 }

@@ -22,6 +22,7 @@
 		<file>qml/TaskSwitcher/Clutch.qml</file>
 		<file>qml/TaskSwitcher/Heading.qml</file>
 		<file>qml/TaskSwitcher/ShiftTiming.qml</file>
+		<file>qml/TaskSwitcher/Settings.qml</file>
 		<file>qml/TaskSwitcher/Task.qml</file>
 		<file>qml/TaskSwitcher/TaskSwitcher.qml</file>
 	</qresource>

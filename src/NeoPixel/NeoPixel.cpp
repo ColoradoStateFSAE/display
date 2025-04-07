@@ -61,6 +61,15 @@ bool NeoPixel::critical() {
 	return coolant >= 230;
 }
 
+void NeoPixel::setBrightness(int value) {
+	ledString.channel[0].brightness = value;
+	brightness = value;
+}
+
+int NeoPixel::getBrightness() {
+	return brightness;
+}
+
 
 void NeoPixel::start() {
 	startup_animation();
@@ -99,20 +108,20 @@ void NeoPixel::start() {
 			}
 				
 			case SHIFT_RECEIVED: {
-				// fill(0x008080);
-				// QThread::msleep(100);
-				// auto &currentBrightness = ledString.channel[0].brightness;
-				// while(0 < currentBrightness) {
-				// 	currentBrightness -= 1;
-				// 	ws2811_render(&ledString);
-				// 	QThread::msleep(1);
-				// }
-				// fill(0x000000);
-				// ws2811_render(&ledString);
-				// currentBrightness = 255;
+				fill(0x008080);
+				QThread::msleep(100);
+				auto &currentBrightness = ledString.channel[0].brightness;
+				while(0 < currentBrightness) {
+					currentBrightness -= 1;
+					ws2811_render(&ledString);
+					QThread::msleep(1);
+				}
+				fill(0x000000);
+				ws2811_render(&ledString);
+				currentBrightness = 255;
 				
-				// state = SHIFT_LIGHTS;
-				// break;
+				state = SHIFT_LIGHTS;
+				break;
 			}
 				
 			case WARNING: {

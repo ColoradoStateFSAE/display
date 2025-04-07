@@ -3,7 +3,13 @@
 clear
 set -e
 
-# Define the new download directory
+echo "Would you like to update DBC files? y/n"
+read -s -n 1 key
+
+case $key in
+    y|Y)
+        echo "You pressed 'y'. Continuing..."
+        # Define the new download directory
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DBC_DIR="$SCRIPT_DIR/src/dbc"
 
@@ -28,7 +34,18 @@ for URL in $URLS; do
 done
 
 echo "DBC DOWNLOAD COMPLETE"
+        ;;
+    n|N)
+        echo "You pressed 'n'."
+        ;;
+    *)
+        echo "Invalid input. Please press 'y' or 'n'."
+        ;;
+esac
 
+
+
+echo "BUILDING..."
 # Ensure the build directory exists
 mkdir -p build
 

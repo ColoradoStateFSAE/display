@@ -27,6 +27,7 @@ class Navigation : public QObject {
 		ABOUT,
 		SHIFT,
 		CLUTCH,
+		SETTINGS,
 
 		UP_DELAY,
 		DOWN_DELAY,
@@ -38,6 +39,8 @@ class Navigation : public QObject {
 		FRICTION,
 		POSITION,
 		AUTO_LAUNCH,
+
+		BRIGHTNESS,
 	};
 	Q_ENUM(State)
 
@@ -69,6 +72,9 @@ class Navigation : public QObject {
 	MenuItem position = MenuItem(POSITION, 10, [&](){ setClutchPosition(1); }, 0, 2000);
 	MenuItem autoLaunch = MenuItem(AUTO_LAUNCH, 1, [&](){ setClutchValues(); }, 0, 1);
 
+	MenuItem settings = MenuItem(SETTINGS, 10, [&](){ current = &brightness; }).heading();
+	MenuItem brightness = MenuItem(BRIGHTNESS, 10, [&](){setBrightness(255); }, 0, 255);
+
 	QList<QCanBusDevice::Filter> filter();
 	void encoderReceived(int value);
 	void buttonPressReceived();
@@ -78,6 +84,7 @@ class Navigation : public QObject {
 	void setShiftValues();
 	void setClutchValues();
 	void setClutchPosition(int state=0);
+	void setBrightness(int value = 255);
 };
 
 #endif // NAVIGATION_H

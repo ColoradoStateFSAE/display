@@ -114,21 +114,21 @@ Window {
 			id: shiftingSystemOffline
 			anchors.bottom: parent.bottom
 			anchors.horizontalCenter: parent.horizontalCenter
-			anchors.bottomMargin: 60
+			anchors.bottomMargin: 10
 		}
 
 		EcuOffline {
 			id: ecuOffline
 			anchors.bottom: parent.bottom
 			anchors.horizontalCenter: parent.horizontalCenter
-			anchors.bottomMargin: 110
+			anchors.bottomMargin: 60
 		}
 
 		SteeringOffline {
 			id: steeringOffline
 			anchors.bottom: parent.bottom
 			anchors.horizontalCenter: parent.horizontalCenter
-			anchors.bottomMargin: 170
+			anchors.bottomMargin: 110
 		}
 	}
 
