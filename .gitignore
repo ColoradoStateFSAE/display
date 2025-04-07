@@ -5,3 +5,4 @@ build
 /*.cpp
 Makefile
 src/dbc
+*Zone.Identifier*
