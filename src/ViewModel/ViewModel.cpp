@@ -6,13 +6,14 @@ ViewModel::ViewModel(Navigation &navigation, QObject* parent) : QObject(parent),
 	time.start();
 	lastShiftUpdate = time.elapsed();
 	lastCanUpdate = time.elapsed();
+	lastControllerUpdate = time.elapsed();
 	
 	string filename = get_filename();
 	string canFilename = "/root/log/" + filename + "can.txt";
 	canFile = ofstream(canFilename, ios::app);
 	
 	// // NeoPixel
-	NeoPixel *neoPixel = new NeoPixel(7000, 9200);
+	NeoPixel *neoPixel = new NeoPixel(10000, 14000);
 	QObject::connect(&neoPixelThread, &QThread::started, neoPixel, &NeoPixel::start);
 	neoPixel->moveToThread(&neoPixelThread);
 	neoPixelThread.start();
@@ -36,6 +37,12 @@ ViewModel::ViewModel(Navigation &navigation, QObject* parent) : QObject(parent),
 	connect(timer, &QTimer::timeout, [&]() {
 		// Do not update if the task switcher is active
 		if(navigation.taskSwitcher) return;
+
+		if(time.elapsed() - lastControllerUpdate > 500) {
+			emit shiftControllerOffline(true);
+		} else {
+			emit shiftControllerOffline(false);
+		}
 		
 		if(time.elapsed() - lastShiftUpdate > 500) {
 			emit shiftingSystemOffline(true);
@@ -115,6 +122,12 @@ void ViewModel::frameReceived(const QCanBusFrame &frame) {
 			tcs_clutch_unpack(&message, data, frame.payload().size());
 
 			clutch = tcs_clutch_position_percentage_decode(message.position_percentage);
+			break;
+		}
+
+		case TCS_SHIFT_CONTROLLER_FRAME_ID: {
+			lastControllerUpdate = time.elapsed();
+			tcs_shift_controller_t message;
 			break;
 		}
 		

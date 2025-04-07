@@ -12,6 +12,7 @@
 		<file>image/spheres.png</file>
 		<file>qml/Error/EcuOffline.qml</file>
 		<file>qml/Error/ShiftingSystemOffline.qml</file>
+		<file>qml/Error/SteeringOffline.qml</file>
 		<file>qml/Guage.qml</file>
 		<file>qml/main.qml</file>
 		<file>qml/PanelLeft.qml</file>

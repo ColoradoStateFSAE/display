@@ -34,6 +34,7 @@ signals:
 	void shiftReceived();
 	void ecuOffline(bool state);
 	void shiftingSystemOffline(bool state);
+	void shiftControllerOffline(bool state);
 
 public:
 	ViewModel(Navigation &navigation, QObject* parent = nullptr);
@@ -43,6 +44,7 @@ private:
 	QElapsedTimer time;
 	qint64 lastCanUpdate;
 	qint64 lastShiftUpdate;
+	qint64 lastControllerUpdate;
 	std::ofstream canFile;
 	Navigation &navigation;
 	QThread neoPixelThread;

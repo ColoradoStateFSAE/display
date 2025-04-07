@@ -16,7 +16,7 @@ Item {
 
 		Text {
 			id: errorText
-			text: "ECU OFFLINE"
+			text: "STEERING WHEEL OFFLINE"
 			font.family: heeboBold.name
 			font.pixelSize: 24
 			color: "white"

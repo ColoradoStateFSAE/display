@@ -43,6 +43,7 @@ Window {
 
 		function onEcuOffline(state) {ecuOffline.visible = state }
 		function onShiftingSystemOffline(state) { shiftingSystemOffline.visible = state }
+		function onShiftControllerOffline(state) {steeringOffline.visible = state}
 	}
 
 	Rectangle {
@@ -118,6 +119,16 @@ Window {
 
 		EcuOffline {
 			id: ecuOffline
+			anchors.bottom: parent.bottom
+			anchors.horizontalCenter: parent.horizontalCenter
+			anchors.bottomMargin: 110
+		}
+
+		SteeringOffline {
+			id: steeringOffline
+			anchors.bottom: parent.bottom
+			anchors.horizontalCenter: parent.horizontalCenter
+			anchors.bottomMargin: 170
 		}
 	}
 
