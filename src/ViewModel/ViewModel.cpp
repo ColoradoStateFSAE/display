@@ -23,15 +23,6 @@ ViewModel::ViewModel(Navigation &navigation, QObject* parent) : QObject(parent),
 	QObject::connect(this, &ViewModel::coolantChanged, neoPixel, &NeoPixel::coolantReceived);
 	QObject::connect(this, &ViewModel::shiftReceived, neoPixel, &NeoPixel::shiftReceived);
 	
-	// GPS
-	Gps gps(filename);
-	
-	// Motion
-	Motion *motion = new Motion(filename);
-	QObject::connect(&motionThread, &QThread::started, motion, &Motion::start);
-	motion->moveToThread(&motionThread);
-	motionThread.start();
-	
 	// Update the screen every 17 ms
 	QTimer *timer = new QTimer(this);
 	connect(timer, &QTimer::timeout, [&]() {

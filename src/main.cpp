@@ -7,7 +7,6 @@
 #include <iostream>
 #include "ViewModel/ViewModel.h"
 #include "Navigation/Navigation.h"
-#include "Gps/Gps.h"
 #include <QQuickWindow>
 #include <QScreen>
 #include <QImage>

@@ -8,8 +8,6 @@
 #include <sstream>
 #include "../Navigation/Navigation.h"
 #include "../NeoPixel/NeoPixel.h"
-#include "../Gps/Gps.h"
-#include "../Motion/Motion.h"
 #include "../dbc/r3.h"
 #include "../dbc/tcs.h"
 #include "../Util/convert.h"
