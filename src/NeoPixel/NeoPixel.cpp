@@ -49,7 +49,7 @@ void NeoPixel::startup_animation() {
 	}
 
 	fill(0);
-	currentBrightness = 255;
+	currentBrightness = targetBrightness;
 }
 
 bool NeoPixel::warning() {
@@ -60,16 +60,6 @@ bool NeoPixel::warning() {
 bool NeoPixel::critical() {
 	return coolant >= 230;
 }
-
-void NeoPixel::setBrightness(int value) {
-	ledString.channel[0].brightness = value;
-	brightness = value;
-}
-
-int NeoPixel::getBrightness() {
-	return brightness;
-}
-
 
 void NeoPixel::start() {
 	startup_animation();
@@ -83,23 +73,28 @@ void NeoPixel::start() {
 		if(warning()) state = WARNING;
 		if(critical()) state = CRITICAL;
 		
-		switch(state) {				
+		switch(state) {	
+			int active_pixels;			
 			case SHIFT_LIGHTS: {
-				float percentage = (rpm - min) / (max - min);
-				int active_pixels = ceil(percentage * 6);
+
+				if (rpm >= min) {
+					active_pixels = 6;
+				}
+				else if(rpm >= max - (max - min)) {
+					active_pixels = 12;
+				}
+				else {
+					active_pixels = 12;
+				} 
 				
 				if (active_pixels <= 0) break;
 				
-				for (int i = 0; i < active_pixels; ++i) {
-					if (i < 3) {
-						ledString.channel[0].leds[i] = RED;
-						ledString.channel[0].leds[n-i] = RED;
-					} else if (i < 6) {
+				for (int i = 4; i < active_pixels + 4; ++i) {
+					if (i > 0) {
 						ledString.channel[0].leds[i] = BLUE;
-						ledString.channel[0].leds[n-i] = BLUE;
-					} else if (i < 8) {
-						ledString.channel[0].leds[i] = GREEN;
-						ledString.channel[0].leds[n-i] = GREEN;
+					} 
+					if (i > 9) {
+						ledString.channel[0].leds[i] = RED;
 					}
 				}
 				
@@ -118,7 +113,7 @@ void NeoPixel::start() {
 				}
 				fill(0x000000);
 				ws2811_render(&ledString);
-				currentBrightness = 255;
+				currentBrightness = targetBrightness;
 				
 				state = SHIFT_LIGHTS;
 				break;
@@ -155,4 +150,10 @@ void NeoPixel::coolantReceived(float value) {
 
 void NeoPixel::shiftReceived() {
 	state = SHIFT_RECEIVED;
+}
+
+void NeoPixel::brightnessReceived(int value) {
+	targetBrightness = std::clamp(value, 0, 255);
+	ledString.channel[0].brightness = targetBrightness;
+	ws2811_render(&ledString);
 }

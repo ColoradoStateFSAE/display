@@ -22,6 +22,7 @@ ViewModel::ViewModel(Navigation &navigation, QObject* parent) : QObject(parent),
 	QObject::connect(this, &ViewModel::batteryChanged, neoPixel, &NeoPixel::batteryReceived);
 	QObject::connect(this, &ViewModel::coolantChanged, neoPixel, &NeoPixel::coolantReceived);
 	QObject::connect(this, &ViewModel::shiftReceived, neoPixel, &NeoPixel::shiftReceived);
+	QObject::connect(this, &ViewModel::brightnessChanged, neoPixel, &NeoPixel::brightnessReceived);
 	
 	// Update the screen every 17 ms
 	QTimer *timer = new QTimer(this);
@@ -54,6 +55,7 @@ ViewModel::ViewModel(Navigation &navigation, QObject* parent) : QObject(parent),
 			emit batteryChanged(battery);
 			emit afrChanged(afr);
 			emit clutchChanged(clutch);
+			emit lateral_gChanged(lateral_g);
 		}
 	});
 	timer->start(16);
@@ -174,12 +176,26 @@ void ViewModel::frameReceived(const QCanBusFrame &frame) {
 			gear = r3_group39_gear_decode(message.gear);
 			break;
 		}
+		case R3_GROUP08_FRAME_ID: {
+			r3_group08_t message;
+			r3_group08_unpack(&message, data, frame.payload().size());
+			lateral_g = r3_group08_lateral_g_decode(message.lateral_g);
+			break;
+		}
+
 	}
 	
 	if(neutral) {
 		gear = 0;
 	}
 	// logFrame(frame);
+}
+
+void ViewModel::setBrightness(int value) {
+	if (brightness != value) {
+		brightness = value;
+		emit brightnessChanged(value);
+	}
 }
 
 void ViewModel::logFrame(const QCanBusFrame &frame) {

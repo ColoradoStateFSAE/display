@@ -20,6 +20,7 @@ class Navigation : public QObject {
 	void cursorChanged(int, bool);
 	void shiftChanged(int, int, int, int);
 	void clutchChanged(int, int, int, int, int);
+	void settingsChanged(int, int);
 
   public:
 	enum State {
@@ -41,6 +42,7 @@ class Navigation : public QObject {
 		AUTO_LAUNCH,
 
 		BRIGHTNESS,
+		CHANCE,
 	};
 	Q_ENUM(State)
 
@@ -73,7 +75,8 @@ class Navigation : public QObject {
 	MenuItem autoLaunch = MenuItem(AUTO_LAUNCH, 1, [&](){ setClutchValues(); }, 0, 1);
 
 	MenuItem settings = MenuItem(SETTINGS, 10, [&](){ current = &brightness; }).heading();
-	MenuItem brightness = MenuItem(BRIGHTNESS, 10, [&](){setBrightness(255); }, 0, 255);
+	MenuItem brightness = MenuItem(BRIGHTNESS, 10, [&](){ setSettings(); }, 0, 255);
+	MenuItem chance = MenuItem(CHANCE, 1, [&](){ setSettings(); }, 0, 1);
 
 	QList<QCanBusDevice::Filter> filter();
 	void encoderReceived(int value);
@@ -84,7 +87,7 @@ class Navigation : public QObject {
 	void setShiftValues();
 	void setClutchValues();
 	void setClutchPosition(int state=0);
-	void setBrightness(int value = 255);
+	void setSettings();
 };
 
 #endif // NAVIGATION_H

@@ -75,7 +75,8 @@ Item {
 
 		tasks: [
 			Navigation.SETTINGS,
-			Navigation.BRIGHTNESS
+			Navigation.BRIGHTNESS,
+			Navigation.CHANCE
 		]
 	}
 

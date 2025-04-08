@@ -6,7 +6,7 @@ Item {
 	width: 340
 	height: iconImage.y + iconImage.height
 
-	property real value: 12
+	property real value: 0
 	property real minimum: 10
 	property real maximum: 12
 	property real decimals: 1

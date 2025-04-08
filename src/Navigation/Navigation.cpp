@@ -92,6 +92,8 @@ void Navigation::configureNavigation() {
 
 		// Settings
 		brightness.previous = &settings;
+		brightness.next = &chance;
+		chance.previous = &brightness;
 		
 	}
 
@@ -104,6 +106,7 @@ void Navigation::startUpdates() {
 		emit cursorChanged(current->id, current->selected);
 		emit shiftChanged(upDelay.value, downDelay.value, output.value, timeout.value);
 		emit clutchChanged(start.value, end.value, friction.value, position.value, autoLaunch.value);
+		emit settingsChanged(brightness.value, chance.value);
 	});
 	timer->start(16);
 }
@@ -144,8 +147,8 @@ void Navigation::frameReceived(const QCanBusFrame &frame) {
 	}
 }
 
-void Navigation::setBrightness(int value) {
-	setBrightness(value);
+void Navigation::setSettings() {
+
 }
 
 void Navigation::setShiftValues() {

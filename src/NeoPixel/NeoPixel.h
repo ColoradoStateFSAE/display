@@ -31,6 +31,7 @@ private:
 	float battery = 0;
 	float coolant = 0;
 	int brightness = BASE_BRIGHTNESS;
+	int targetBrightness = 255;
 
 	size_t n = LED_COUNT-1;
 
@@ -58,8 +59,7 @@ public slots:
 	void batteryReceived(float value);
 	void coolantReceived(float value);
 	void shiftReceived();
-	void setBrightness(int value);
-	int getBrightness();
+	void brightnessReceived(int value);
 };
 
 #endif // NEOPIXEL_H

@@ -4,6 +4,14 @@ import navigation 1.0
 Item {
 	FontLoader { id: heeboBold; source: "qrc:/font/heebo_bold.ttf" }
 
+    Connections {
+		target: navigation
+		function onSettingsChanged(a, b) {
+			if(brightness !== a) brightness.value = a;
+			if(chance !== b) chance.value = b? "ON" : "OFF";
+		}
+	}
+
 	width: rectangle.width
 	height: rectangle.y + rectangle.height
 
@@ -37,7 +45,15 @@ Item {
 			width: rectangle.width / 2
 			height: rectangle.height / 2
 			cursor: cursorTask === Navigation.BRIGHTNESS
-		}
+        }
 
+        Task {
+			id: chance
+			title: "CHANCE MODE"
+			width: rectangle.width / 2
+			height: rectangle.height / 2
+			x: rectangle.width / 2
+			cursor: cursorTask === Navigation.CHANCE
+        }
 	}
 }

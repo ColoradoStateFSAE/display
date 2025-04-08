@@ -29,6 +29,8 @@ signals:
 	void afrChanged(float value);
 	void clutchChanged(float value);
 	void oilChanged(float value);
+	void lateral_gChanged(float value);
+	void brightnessChanged(int value);
 	void shiftReceived();
 	void ecuOffline(bool state);
 	void shiftingSystemOffline(bool state);
@@ -37,6 +39,8 @@ signals:
 public:
 	ViewModel(Navigation &navigation, QObject* parent = nullptr);
 	void frameReceived(const QCanBusFrame &frame);
+	int getBrightness() const { return brightness; }
+	void setBrightness(int value);
 
 private:
 	QElapsedTimer time;
@@ -58,6 +62,8 @@ private:
 	float afr = 0;
 	float clutch = 0;
 	float oil = 0;
+	float lateral_g = 0;
+	int brightness = 0;
 
 	std::string get_filename();
 	void logFrame(const QCanBusFrame &frame);
