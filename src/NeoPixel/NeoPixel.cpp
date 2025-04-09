@@ -100,24 +100,7 @@ void NeoPixel::start() {
 				
 				ws2811_render(&ledString);
 				break;
-			}
-				
-			case SHIFT_RECEIVED: {
-				fill(0x008080);
-				QThread::msleep(100);
-				auto &currentBrightness = ledString.channel[0].brightness;
-				while(0 < currentBrightness) {
-					currentBrightness -= 1;
-					ws2811_render(&ledString);
-					QThread::msleep(1);
-				}
-				fill(0x000000);
-				ws2811_render(&ledString);
-				currentBrightness = targetBrightness;
-				
-				state = SHIFT_LIGHTS;
-				break;
-			}
+			
 				
 			case WARNING: {
 				fill(0xFFA500);
@@ -134,6 +117,7 @@ void NeoPixel::start() {
 			}
 			default:
 				break;
+			}
 		}
 	}
 }
@@ -148,10 +132,6 @@ void NeoPixel::batteryReceived(float value) {
 
 void NeoPixel::coolantReceived(float value) {	
 	coolant = value;
-}
-
-void NeoPixel::shiftReceived() {
-	state = SHIFT_RECEIVED;
 }
 
 void NeoPixel::brightnessReceived(int value) {

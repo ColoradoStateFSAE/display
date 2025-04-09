@@ -21,7 +21,6 @@ ViewModel::ViewModel(Navigation &navigation, QObject* parent) : QObject(parent),
 	QObject::connect(this, &ViewModel::rpmChanged, neoPixel, &NeoPixel::rpmReceived);
 	QObject::connect(this, &ViewModel::batteryChanged, neoPixel, &NeoPixel::batteryReceived);
 	QObject::connect(this, &ViewModel::coolantChanged, neoPixel, &NeoPixel::coolantReceived);
-	QObject::connect(this, &ViewModel::shiftReceived, neoPixel, &NeoPixel::shiftReceived);
 	QObject::connect(this, &ViewModel::brightnessChanged, neoPixel, &NeoPixel::brightnessReceived);
 	
 	// Update the screen every 17 ms
@@ -105,13 +104,6 @@ void ViewModel::frameReceived(const QCanBusFrame &frame) {
 	auto data = reinterpret_cast<const uint8_t*>(frame.payload().constData());
 	
 	switch(id) {
-		case 522: {
-			if(data[0] == 1) {
-				emit shiftReceived();
-			}
-			break;
-		}
-
 		case TCS_CLUTCH_FRAME_ID: {
 			lastShiftUpdate = time.elapsed();
 			tcs_clutch_t message;

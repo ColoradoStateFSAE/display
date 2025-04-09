@@ -41,7 +41,6 @@ private:
 public:
 	enum State {
 		SHIFT_LIGHTS,
-		SHIFT_RECEIVED,
 		WARNING,
 		CRITICAL
 	};
@@ -58,7 +57,6 @@ public slots:
 	void rpmReceived(int value);
 	void batteryReceived(float value);
 	void coolantReceived(float value);
-	void shiftReceived();
 	void brightnessReceived(int value);
 };
 
