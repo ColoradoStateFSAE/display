@@ -88,13 +88,6 @@ void NeoPixel::start() {
 		QCoreApplication::processEvents();
 		QThread::msleep(32);
 
-			if (rpm > 14000){
-				rpm = 0;
-			}
-			else {
-				rpm += 100;
-			}
-
 		float percentage = (rpm - min) / (max - min);
 		int active_pixels = ceil(percentage * 12);
 
