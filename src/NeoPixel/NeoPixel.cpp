@@ -31,6 +31,25 @@ void NeoPixel::fill(int color) {
 	ws2811_render(&ledString);
 }
 
+void NeoPixel::fillError(int color) {
+	for (size_t i=0; i<ERROR_LED_COUNT; i++){
+		ledString.channel[0].leds[i] = color;
+	}
+}
+
+void NeoPixel::fillShift(int active_pixels){
+	for (int i = ERROR_LED_COUNT; i < active_pixels + ERROR_LED_COUNT; ++i){
+		if (i > 0) {
+			ledString.channel[0].leds[i] = RED;
+		}
+		if (i > 9) {
+			for (int i = ERROR_LED_COUNT + SHIFT_LED_COUNT / 2; i < LED_COUNT; ++i){
+				ledString.channel[0].leds[i] = BLUE;
+			}
+		}
+	}
+}
+
 void NeoPixel::startup_animation() {
 	for(size_t i=0; i<LED_COUNT / 2; i++) {
 		ledString.channel[0].leds[i] = WHITE;
@@ -54,7 +73,6 @@ void NeoPixel::startup_animation() {
 
 bool NeoPixel::warning() {
 	return coolant >= 220 || (battery <= 11.2 && battery > 0);
-	
 }
 
 bool NeoPixel::critical() {
@@ -63,59 +81,56 @@ bool NeoPixel::critical() {
 
 void NeoPixel::start() {
 	startup_animation();
+
+	int seed = 0;
 	
 	while(true) {
 		QCoreApplication::processEvents();
 		QThread::msleep(32);
-		
-		fill(0);
-		
-		if(warning()) state = WARNING;
-		if(critical()) state = CRITICAL;
-		
-		switch(state) {	
-			int active_pixels;			
-			case SHIFT_LIGHTS: {
 
-				if (rpm >= min) {
-					active_pixels = 6;
+			if (rpm > 14000){
+				rpm = 0;
+			}
+			else {
+				rpm += 100;
+			}
+
+		float percentage = (rpm - min) / (max - min);
+		int active_pixels = ceil(percentage * 12);
+
+		if(critical()) state = CRITICAL;
+		fill(0);
+
+		switch(state) {
+			case SHIFT_LIGHTS: {
+				if (warning()) {
+					fillError(0xFFA500);
 				}
-				else if(rpm >= max - (max - min)) {
-					active_pixels = 12;
+				if (active_pixels > 0 && gear != 6) {
+					fillShift(active_pixels);
 				}
-				else {
-					active_pixels = 0;
-				} 
-				
-				if (active_pixels <= 0) break;
-				
-				for (int i = 4; i < active_pixels + 4; ++i) {
-					if (i > 0) {
-						ledString.channel[0].leds[i] = BLUE;
-					} 
-					if (i > 9) {
+				ws2811_render(&ledString);
+				break;
+			}
+
+			case CRITICAL: {
+				seed ^= 1;
+			
+				for (int i = seed; i < LED_COUNT; i += 2) {
+					if (i >=0) {
+						ledString.channel[0].leds[i] = YELLOW;
+					}
+					if (i > 3) {
 						ledString.channel[0].leds[i] = RED;
 					}
+					if (i > 9) {
+						ledString.channel[0].leds[i] = BLUE;
+					}
 				}
-				
-				ws2811_render(&ledString);
-				break;
 			
-				
-			case WARNING: {
-				fill(0xFFA500);
 				ws2811_render(&ledString);
-				if(!warning()) state = SHIFT_LIGHTS;
-				break;
-			}
-				
-			case CRITICAL: {
-				fill(0xFF0000);
-				ws2811_render(&ledString);
-				if(!critical()) state = SHIFT_LIGHTS;
-				break;
-			}
-			default:
+				if (!critical()) state = SHIFT_LIGHTS;
+				QThread::msleep(212);
 				break;
 			}
 		}
@@ -124,6 +139,10 @@ void NeoPixel::start() {
 
 void NeoPixel::rpmReceived(int value) {
 	rpm = value;
+}
+
+void NeoPixel::gearReceived(int value) {
+	gear = value;
 }
 
 void NeoPixel::batteryReceived(float value) {

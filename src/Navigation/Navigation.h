@@ -20,10 +20,12 @@ class Navigation : public QObject {
 	void cursorChanged(int, bool);
 	void shiftChanged(int, int, int, int);
 	void clutchChanged(int, int, int, int, int);
-	void settingsChanged(int);
 	void chanceChanged(int);
+	void brightnessChanged(int);
 
   public:
+  	
+	
 	enum State {
 		EXIT,
 		ABOUT,
@@ -77,7 +79,7 @@ class Navigation : public QObject {
 	MenuItem autoLaunch = MenuItem(AUTO_LAUNCH, 1, [&](){ setClutchValues(); }, 0, 1);
 
 	MenuItem settings = MenuItem(SETTINGS, 10, [&](){ current = &brightness; }).heading();
-	MenuItem brightness = MenuItem(BRIGHTNESS, 10, [&](){ setSettings(); }, 0, 255);
+	MenuItem brightness = MenuItem(BRIGHTNESS, 10, [&](){ setBrightness(); }, 0, 255);
 	MenuItem chance = MenuItem(CHANCE, 1, [&](){ setChance(); }, 0, 1);
 	
 	MenuItem accelerometer = MenuItem(ACCELEROMETER, 0, [](){}).heading();
@@ -91,7 +93,7 @@ class Navigation : public QObject {
 	void setShiftValues();
 	void setClutchValues();
 	void setClutchPosition(int state=0);
-	void setSettings();
+	void setBrightness();
 	void setChance();
 };
 

@@ -6,7 +6,7 @@ Item {
 
     Connections {
 		target: navigation
-		function onSettingsChanged(a) {
+		function onBrightnessChanged(a) {
 			if(brightness !== a) brightness.value = a;
 		}
         function onChanceChanged(a) {
