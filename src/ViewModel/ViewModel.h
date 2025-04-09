@@ -29,7 +29,9 @@ signals:
 	void afrChanged(float value);
 	void clutchChanged(float value);
 	void oilChanged(float value);
-	void lateral_gChanged(float value);
+	void longitudinalGChanged(float value);
+	void lateralGChanged(float value);
+	void verticalGChanged(float value);
 	void brightnessChanged(int value);
 	void shiftReceived();
 	void ecuOffline(bool state);
@@ -62,7 +64,9 @@ private:
 	float afr = 0;
 	float clutch = 0;
 	float oil = 0;
-	float lateral_g = 0;
+	float longitudinalG = 0;
+	float lateralG = 0;
+	float verticalG = 0;
 	int brightness = 0;
 
 	std::string get_filename();

@@ -27,6 +27,10 @@ ViewModel::ViewModel(Navigation &navigation, QObject* parent) : QObject(parent),
 	// Update the screen every 17 ms
 	QTimer *timer = new QTimer(this);
 	connect(timer, &QTimer::timeout, [&]() {
+		emit longitudinalGChanged(longitudinalG);
+		emit lateralGChanged(lateralG);
+		emit verticalGChanged(verticalG);
+
 		// Do not update if the task switcher is active
 		if(navigation.taskSwitcher) return;
 
@@ -55,7 +59,6 @@ ViewModel::ViewModel(Navigation &navigation, QObject* parent) : QObject(parent),
 			emit batteryChanged(battery);
 			emit afrChanged(afr);
 			emit clutchChanged(clutch);
-			emit lateral_gChanged(lateral_g);
 		}
 	});
 	timer->start(16);
@@ -177,11 +180,28 @@ void ViewModel::frameReceived(const QCanBusFrame &frame) {
 			break;
 		}
 		case R3_GROUP08_FRAME_ID: {
-			r3_group08_t message;
-			r3_group08_unpack(&message, data, frame.payload().size());
-			lateral_g = r3_group08_lateral_g_decode(message.lateral_g);
-			break;
-		}
+            r3_group08_t message;
+            r3_group08_unpack(&message, data, frame.payload().size());
+
+            lateralG = r3_group08_lateral_g_decode(message.lateral_g) / 9.81;
+            break;
+        }
+
+        case R3_GROUP11_FRAME_ID: {
+            r3_group11_t message;
+            r3_group11_unpack(&message, data, frame.payload().size());
+
+            longitudinalG = r3_group11_longitudinal_g_decode(message.longitudinal_g) / 9.81;
+            break;
+        }
+
+        case R3_GROUP43_FRAME_ID: {
+            r3_group43_t message;
+            r3_group43_unpack(&message, data, frame.payload().size());
+
+            verticalG = r3_group43_vertical_g_decode(message.vertical_g) / 9.81;
+            break;
+        }
 
 	}
 	

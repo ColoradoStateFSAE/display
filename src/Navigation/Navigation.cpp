@@ -62,6 +62,9 @@ void Navigation::configureNavigation() {
 		clutch.next = &settings;
 		
 		settings.previous = &clutch;
+		settings.next = &accelerometer;
+
+		accelerometer.previous = &settings;
 
 		// Shift
 		upDelay.previous = &shift;
@@ -94,6 +97,7 @@ void Navigation::configureNavigation() {
 		brightness.previous = &settings;
 		brightness.next = &chance;
 		chance.previous = &brightness;
+		chance.next = &accelerometer;
 		
 	}
 
@@ -106,7 +110,8 @@ void Navigation::startUpdates() {
 		emit cursorChanged(current->id, current->selected);
 		emit shiftChanged(upDelay.value, downDelay.value, output.value, timeout.value);
 		emit clutchChanged(start.value, end.value, friction.value, position.value, autoLaunch.value);
-		emit settingsChanged(brightness.value, chance.value);
+		emit settingsChanged(brightness.value);
+		emit chanceChanged(chance.value);
 	});
 	timer->start(16);
 }
@@ -148,6 +153,10 @@ void Navigation::frameReceived(const QCanBusFrame &frame) {
 }
 
 void Navigation::setSettings() {
+
+}
+
+void Navigation::setChance() {
 
 }
 

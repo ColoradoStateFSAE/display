@@ -6,10 +6,12 @@ Item {
 
     Connections {
 		target: navigation
-		function onSettingsChanged(a, b) {
+		function onSettingsChanged(a) {
 			if(brightness !== a) brightness.value = a;
-			if(chance !== b) chance.value = b? "ON" : "OFF";
 		}
+        function onChanceChanged(a) {
+            if (chance !=a) chance.value = a? "ON" : "OFF";
+        }
 	}
 
 	width: rectangle.width

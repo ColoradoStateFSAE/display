@@ -26,9 +26,9 @@ Item {
 		anchors.top: parent.top
 		anchors.left: parent.left
 
-		minimum: 11; maximum: 14
+		minimum: 10; maximum: 14.6
 		decimals: 1
-		error: batteryGuage.value <= 12.2
+		error: batteryGuage.value <= 11.2
 
 		units: "V"
 		icon: "qrc:/icon/battery.png"

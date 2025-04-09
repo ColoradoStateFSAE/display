@@ -3,11 +3,13 @@
 		<file>font/gram_bold.ttf</file>
 		<file>font/heebo_bold.ttf</file>
 		<file>icon/about.png</file>
+		<file>icon/accelerometer.png</file>
 		<file>icon/battery.png</file>
 		<file>icon/close.png</file>
 		<file>icon/coolant.png</file>
 		<file>icon/error.png</file>
 		<file>icon/servo.png</file>
+		<file>icon/settings.png</file>
 		<file>icon/shift.png</file>
 		<file>image/spheres.png</file>
 		<file>qml/Error/EcuOffline.qml</file>
@@ -19,6 +21,7 @@
 		<file>qml/PanelRight.qml</file>
 		<file>qml/Tachometer.qml</file>
 		<file>qml/TaskSwitcher/About.qml</file>
+		<file>qml/TaskSwitcher/Accelerometer.qml</file>
 		<file>qml/TaskSwitcher/Clutch.qml</file>
 		<file>qml/TaskSwitcher/Heading.qml</file>
 		<file>qml/TaskSwitcher/ShiftTiming.qml</file>

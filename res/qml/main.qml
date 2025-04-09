@@ -9,6 +9,8 @@ Window {
     visible: true
 	FontLoader { id: gramBold; source: "qrc:/font/gram_bold.ttf" }
 
+	property int chance: 0
+
 	Connections {
 		target: navigation
 		function onChangeTaskSwitcher(enabled) {
@@ -23,6 +25,15 @@ Window {
 				taskSwitcherExit.running = true;
 			}
 		}
+		function onChanceChanged(value){
+			chance = value;
+			if (chance === 1){
+				gear.text = "CHANCE"
+			}
+			if (chance === 0){
+				gear.text = "N"
+			}
+		}
 	}
 	
 	Connections {
@@ -32,12 +43,20 @@ Window {
 		}
 
 		function onGearChanged(value) {
-			if(gear.value !== value) {
-				if(value === 0) {
-					gear.text = "N";
-				} else {
+			if(chance === 0){
+				if(gear.value !== value) {
+					if(value === 0) {
+						gear.text = "N";
+					} else {
 					gear.text = "?"
+					}
 				}
+			}
+		}
+
+		function onlateralGChanged(value){
+			if (chance === 1){
+				gear.text = value;
 			}
 		}
 

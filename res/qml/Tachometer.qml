@@ -8,7 +8,7 @@ Item {
 
 	width: 800
 	height: 140
-	property real value: 14000
+	property real value: 0
 	property real valueMax: 14000
 	property int n: 100
 	property int margin: 3

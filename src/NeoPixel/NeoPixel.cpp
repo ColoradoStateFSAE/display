@@ -53,7 +53,7 @@ void NeoPixel::startup_animation() {
 }
 
 bool NeoPixel::warning() {
-	return coolant >= 220 || battery <= 11.2;
+	return coolant >= 220 || (battery <= 11.2 && battery > 0);
 	
 }
 
@@ -84,7 +84,7 @@ void NeoPixel::start() {
 					active_pixels = 12;
 				}
 				else {
-					active_pixels = 12;
+					active_pixels = 0;
 				} 
 				
 				if (active_pixels <= 0) break;
@@ -132,6 +132,8 @@ void NeoPixel::start() {
 				if(!critical()) state = SHIFT_LIGHTS;
 				break;
 			}
+			default:
+				break;
 		}
 	}
 }

@@ -80,12 +80,21 @@ Item {
 		]
 	}
 
+	Accelerometer {
+		anchors.horizontalCenter: parent.horizontalCenter
+		anchors.top: parent.top
+		anchors.topMargin: topSpacing
+
+		visible: cursorTask === Navigation.ACCELEROMETER
+				 ? true : false
+	}
+
 	Heading {
 		id: exit
 		anchors.left: parent.left
 		anchors.bottom: parent.bottom
 		anchors.leftMargin: 60
-		anchors.bottomMargin: 30
+		anchors.bottomMargin: 5
 		icon: "qrc:/icon/close.png"
 		taskId: Navigation.EXIT
 	}
@@ -123,14 +132,25 @@ Item {
 		taskId: Navigation.CLUTCH
 	}
 
-		Heading {
+	Heading {
 		id: settings
 		anchors.left: parent.left
 		anchors.bottom: clutch.top
 		anchors.leftMargin: 60
 		anchors.bottomMargin: 10
-		headingColor: "#FFDF2B"
-		icon: "qrc:/icon/shift.png"
+		headingColor: "#FBCD2A"
+		icon: "qrc:/icon/settings.png"
 		taskId: Navigation.SETTINGS
+	}
+
+	Heading {
+		id: accelerometer
+		anchors.left: parent.left
+		anchors.bottom: settings.top
+		anchors.leftMargin: 60
+		anchors.bottomMargin: 10
+		headingColor: "#D72BFF"
+		icon: "qrc:/icon/accelerometer.png"
+		taskId: Navigation.ACCELEROMETER
 	}
 }
