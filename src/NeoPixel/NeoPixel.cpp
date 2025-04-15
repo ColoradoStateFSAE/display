@@ -72,11 +72,11 @@ void NeoPixel::startup_animation() {
 }
 
 bool NeoPixel::warning() {
-	return coolant >= 220 || (battery <= 11.2 && battery > 0);
+	return coolant >= 220 || (battery <= 11.2 && battery > 0) || shiftingSystemOffline == true || steeringWheelOffline == true;
 }
 
 bool NeoPixel::critical() {
-	return coolant >= 230 || estop == 1;
+	return coolant >= 230 || estop == 1 || ecuOffline == true;
 }
 
 void NeoPixel::start() {
@@ -152,4 +152,16 @@ void NeoPixel::estopReceived(int value){
 
 void NeoPixel::brightnessReceived(int value) {
 	brightness = value;
+}
+
+void NeoPixel::shiftingReceived(bool state) {
+	shiftingSystemOffline = state;
+}
+
+void NeoPixel::shiftControllerReceived(bool state) {
+	steeringWheelOffline = state;
+}
+
+void NeoPixel::ecuReceived(bool state) {
+	ecuOffline = state;
 }

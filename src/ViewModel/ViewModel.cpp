@@ -23,6 +23,10 @@ ViewModel::ViewModel(Navigation &navigation, QObject* parent) : QObject(parent),
 	QObject::connect(this, &ViewModel::coolantChanged, neoPixel, &NeoPixel::coolantReceived);
 	QObject::connect(this, &ViewModel::brightnessChanged, neoPixel, &NeoPixel::brightnessReceived);
 	QObject::connect(this, &ViewModel::estopChanged, neoPixel, &NeoPixel::estopReceived);
+	QObject::connect(this, &ViewModel::shiftingSystemOffline, neoPixel, &NeoPixel::shiftingReceived);
+	QObject::connect(this, &ViewModel::shiftControllerOffline, neoPixel, &NeoPixel::shiftControllerReceived);
+	QObject::connect(this, &ViewModel::ecuOffline, neoPixel, &NeoPixel::ecuReceived);
+
 	
 	// Update the screen every 17 ms
 	QTimer *timer = new QTimer(this);

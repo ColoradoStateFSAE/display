@@ -35,6 +35,9 @@ private:
 	float battery = 0;
 	float coolant = 0;
 	int estop = 0;
+	bool ecuOffline = false;
+	bool shiftingSystemOffline = false;
+	bool steeringWheelOffline = false;
 	int brightness = BASE_BRIGHTNESS;
 	int targetBrightness = 255;
 
@@ -66,6 +69,9 @@ public slots:
 	void coolantReceived(float value);
 	void brightnessReceived(int value);
 	void estopReceived(int value);
+	void shiftingReceived(bool state);
+	void shiftControllerReceived(bool state);
+	void ecuReceived(bool state);
 };
 
 #endif // NEOPIXEL_H
