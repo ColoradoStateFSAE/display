@@ -13,6 +13,8 @@
 		<file>icon/shift.png</file>
 		<file>image/spheres.png</file>
 		<file>qml/Error/EcuOffline.qml</file>
+		<file>qml/Error/ETCError.qml</file>
+		<file>qml/Error/Estop.qml</file>
 		<file>qml/Error/ShiftingSystemOffline.qml</file>
 		<file>qml/Error/SteeringOffline.qml</file>
 		<file>qml/Guage.qml</file>

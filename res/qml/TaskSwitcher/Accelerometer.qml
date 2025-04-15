@@ -89,8 +89,8 @@ Item {
 					}
 				}
 
-				let gx = x + lonG * radius;
-				let gy = y + latG * radius;
+				let gy = x + lonG * radius;
+				let gx = y + latG * radius;
 
 				if(gx < 0) gx = 0;
 				if(width < gx) gx = width;

@@ -97,8 +97,6 @@ void Navigation::configureNavigation() {
 		brightness.previous = &settings;
 		brightness.next = &chance;
 		chance.previous = &brightness;
-		chance.next = &accelerometer;
-		
 	}
 
 void Navigation::startUpdates() {

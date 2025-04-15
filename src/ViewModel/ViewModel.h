@@ -33,10 +33,13 @@ signals:
 	void lateralGChanged(float value);
 	void verticalGChanged(float value);
 	void brightnessChanged(int value);
+	void neutralChanged(int value);
 	void shiftReceived();
 	void ecuOffline(bool state);
 	void shiftingSystemOffline(bool state);
 	void shiftControllerOffline(bool state);
+	void estopChanged(int value);
+	void etcChanged(int value);
 
 public:
 	ViewModel(Navigation &navigation, QObject* parent = nullptr);
@@ -55,7 +58,7 @@ private:
 	QThread motionThread;
 	std::stringstream buffer;
 
-	bool neutral = false;
+	int neutral = 0;
 	int gear = 0;
 	float rpm = 0;
 	float battery = 0;
@@ -68,6 +71,8 @@ private:
 	float lateralG = 0;
 	float verticalG = 0;
 	int brightness = 0;
+	int estop = 0;
+	int etcError = 0;
 
 	std::string get_filename();
 	void logFrame(const QCanBusFrame &frame);

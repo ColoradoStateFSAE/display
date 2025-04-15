@@ -10,6 +10,9 @@ Window {
 	FontLoader { id: gramBold; source: "qrc:/font/gram_bold.ttf" }
 
 	property int chance: 0
+	property bool neutral: false
+	property bool estop: false
+	property bool etc: false
 
 	Connections {
 		target: navigation
@@ -25,15 +28,6 @@ Window {
 				taskSwitcherExit.running = true;
 			}
 		}
-		function onChanceChanged(value){
-			chance = value;
-			if (chance === 1){
-				gear.text = "CHANCE"
-			}
-			if (chance === 0){
-				gear.text = "N"
-			}
-		}
 	}
 	
 	Connections {
@@ -45,18 +39,51 @@ Window {
 		function onGearChanged(value) {
 			if(chance === 0){
 				if(gear.value !== value) {
-					if(value === 0) {
+					if(value > 0) {
+						gear.text = value;
+					}
+					else if(neutral === true){
 						gear.text = "N";
-					} else {
-					gear.text = "?"
+					}
+					else {
+						gear.text = "?"
 					}
 				}
+			}
+		}
+
+		function onNeutralChanged(value) {
+			if (value === 1) {
+				neutral = true;
+			}
+			else {
+				neutral = false;
 			}
 		}
 
 		function onlateralGChanged(value){
 			if (chance === 1){
 				gear.text = value;
+			}
+		}
+
+		function onEstopChanged(value){
+			if (value === 1 && etc === false){
+				estop.visible = true;
+			}
+			else {
+				estop.visible = false;
+			}
+		}
+
+		function onEtcChanged(value){
+			if (value === 1){
+				etc = true;
+				etcError.visible = true;
+			}
+			else {
+				etc = false;
+				etcError.visible = false;
 			}
 		}
 
@@ -140,11 +167,24 @@ Window {
 			id: ecuOffline
 			anchors.bottom: parent.bottom
 			anchors.horizontalCenter: parent.horizontalCenter
-			anchors.bottomMargin: 60
+			anchors.bottomMargin: 110
+		}
+
+		Estop {
+			id: estop
+			anchors.bottom: parent.bottom
+			anchors.horizontalCenter: parent.horizontalCenter
+			anchors.bottomMargin: 110
 		}
 
 		SteeringOffline {
 			id: steeringOffline
+			anchors.bottom: parent.bottom
+			anchors.horizontalCenter: parent.horizontalCenter
+			anchors.bottomMargin: 60
+		}
+		ETCError {
+			id: etcError
 			anchors.bottom: parent.bottom
 			anchors.horizontalCenter: parent.horizontalCenter
 			anchors.bottomMargin: 110

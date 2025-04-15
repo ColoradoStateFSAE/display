@@ -34,6 +34,7 @@ private:
 	int gear = 0;
 	float battery = 0;
 	float coolant = 0;
+	int estop = 0;
 	int brightness = BASE_BRIGHTNESS;
 	int targetBrightness = 255;
 
@@ -64,6 +65,7 @@ public slots:
 	void batteryReceived(float value);
 	void coolantReceived(float value);
 	void brightnessReceived(int value);
+	void estopReceived(int value);
 };
 
 #endif // NEOPIXEL_H

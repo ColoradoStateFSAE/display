@@ -76,7 +76,7 @@ bool NeoPixel::warning() {
 }
 
 bool NeoPixel::critical() {
-	return coolant >= 230;
+	return coolant >= 230 || estop == 1;
 }
 
 void NeoPixel::start() {
@@ -146,8 +146,10 @@ void NeoPixel::coolantReceived(float value) {
 	coolant = value;
 }
 
+void NeoPixel::estopReceived(int value){
+	estop = value;
+}
+
 void NeoPixel::brightnessReceived(int value) {
-	targetBrightness = std::clamp(value, 0, 255);
-	ledString.channel[0].brightness = targetBrightness;
-	ws2811_render(&ledString);
+	brightness = value;
 }

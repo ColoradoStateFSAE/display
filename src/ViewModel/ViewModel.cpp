@@ -22,6 +22,7 @@ ViewModel::ViewModel(Navigation &navigation, QObject* parent) : QObject(parent),
 	QObject::connect(this, &ViewModel::batteryChanged, neoPixel, &NeoPixel::batteryReceived);
 	QObject::connect(this, &ViewModel::coolantChanged, neoPixel, &NeoPixel::coolantReceived);
 	QObject::connect(this, &ViewModel::brightnessChanged, neoPixel, &NeoPixel::brightnessReceived);
+	QObject::connect(this, &ViewModel::estopChanged, neoPixel, &NeoPixel::estopReceived);
 	
 	// Update the screen every 17 ms
 	QTimer *timer = new QTimer(this);
@@ -58,6 +59,9 @@ ViewModel::ViewModel(Navigation &navigation, QObject* parent) : QObject(parent),
 			emit batteryChanged(battery);
 			emit afrChanged(afr);
 			emit clutchChanged(clutch);
+			emit neutralChanged(neutral);
+			emit estopChanged(estop);
+			emit etcChanged(etcError);
 		}
 	});
 	timer->start(16);
@@ -194,6 +198,14 @@ void ViewModel::frameReceived(const QCanBusFrame &frame) {
             verticalG = r3_group43_vertical_g_decode(message.vertical_g) / 9.81;
             break;
         }
+
+		case R3_GROUP27_FRAME_ID: {
+			r3_group27_t message;
+			r3_group27_unpack(&message, data, frame.payload().size());
+
+			estop = r3_group27_generic_sensor_1_decode(message.generic_sensor_1);
+			etcError = r3_group27_generic_sensor_2_decode(message.generic_sensor_2);
+		}
 
 	}
 	
