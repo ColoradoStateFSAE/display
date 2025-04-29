@@ -176,6 +176,7 @@ void ViewModel::frameReceived(const QCanBusFrame &frame) {
 			r3_group39_t message;
 			r3_group39_unpack(&message, data, frame.payload().size());
 			
+			afr = r3_group39_wideband_overall_decode(message.wideband_overall);
 			gear = r3_group39_gear_decode(message.gear);
 			break;
 		}
