@@ -172,6 +172,7 @@ void ViewModel::frameReceived(const QCanBusFrame &frame) {
 			neutral = r3_group24_neutral_switch_decode(message.neutral_switch);
 			break;
 		}
+		
 		case R3_GROUP39_FRAME_ID: {
 			r3_group39_t message;
 			r3_group39_unpack(&message, data, frame.payload().size());
@@ -180,6 +181,7 @@ void ViewModel::frameReceived(const QCanBusFrame &frame) {
 			gear = r3_group39_gear_decode(message.gear);
 			break;
 		}
+
 		case R3_GROUP08_FRAME_ID: {
             r3_group08_t message;
             r3_group08_unpack(&message, data, frame.payload().size());
