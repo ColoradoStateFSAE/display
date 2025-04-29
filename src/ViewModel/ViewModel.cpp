@@ -172,12 +172,12 @@ void ViewModel::frameReceived(const QCanBusFrame &frame) {
 			neutral = r3_group24_neutral_switch_decode(message.neutral_switch);
 			break;
 		}
-		
+
 		case R3_GROUP39_FRAME_ID: {
 			r3_group39_t message;
 			r3_group39_unpack(&message, data, frame.payload().size());
 			
-			afr = r3_group39_wideband_overall_decode(message.wideband_overall);
+			afr = r3_group39_wideband_overall_decode(message.wideband_overall) * 14.7;
 			gear = r3_group39_gear_decode(message.gear);
 			break;
 		}
