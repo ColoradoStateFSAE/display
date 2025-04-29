@@ -62,7 +62,6 @@ Item {
 		decimals: 1
 
 		label: "AFR"
-
 		forceOne: false
 	}
 }
