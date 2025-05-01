@@ -97,6 +97,8 @@ void Navigation::configureNavigation() {
 		brightness.previous = &settings;
 		brightness.next = &chance;
 		chance.previous = &brightness;
+		chance.next = &brendan;
+		brendan.previous = &chance;
 	}
 
 void Navigation::startUpdates() {
@@ -104,12 +106,12 @@ void Navigation::startUpdates() {
 	connect(timer, &QTimer::timeout, [&]() {
 		// Do not update if the task switcher is inactive
 		if(!taskSwitcher) return;
-		
 		emit cursorChanged(current->id, current->selected);
 		emit shiftChanged(upDelay.value, downDelay.value, output.value, timeout.value);
 		emit clutchChanged(start.value, end.value, friction.value, position.value, autoLaunch.value);
 		emit brightnessChanged(brightness.value);
 		emit chanceChanged(chance.value);
+		emit brendanChanged(brendan.value);
 	});
 	timer->start(16);
 }
@@ -154,6 +156,10 @@ void Navigation::setBrightness() {
 }
 
 void Navigation::setChance() {
+
+}
+
+void Navigation::setBrendan() {
 
 }
 

@@ -10,6 +10,7 @@ Window {
 	FontLoader { id: gramBold; source: "qrc:/font/gram_bold.ttf" }
 
 	property int chance: 0
+	property int brendan: 0
 	property bool neutral: false
 	property bool estop: false
 	property bool etc: false
@@ -33,7 +34,12 @@ Window {
 	Connections {
 		target: viewModel
 		function onRpmChanged(value) {
-			tachometer.value = value;
+			if(brendan === 1){
+				tachometer.value = value*1.2;
+			}
+			else{
+				tachometer.value = value;
+			}
 		}
 
 		function onGearChanged(value) {
@@ -63,7 +69,7 @@ Window {
 
 		function onlateralGChanged(value){
 			if (chance === 1){
-				gear.text = value;
+				gear.value = value;
 			}
 		}
 

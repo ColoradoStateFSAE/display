@@ -10,7 +10,6 @@ Item {
 		function onTpsChanged(value) {
 			tpsGuage.value = value;
 		}
-
 		function onAfrChanged(value) {
 			afrGuage.value = value * 14.7;
 		}

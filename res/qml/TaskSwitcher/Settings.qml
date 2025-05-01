@@ -12,6 +12,9 @@ Item {
         function onChanceChanged(a) {
             if (chance !=a) chance.value = a? "ON" : "OFF";
         }
+		function onBrendanChanged(a) {
+			if (brendan !=a) brendan.value = a? "ON" : "OFF";
+		}
 	}
 
 	width: rectangle.width
@@ -57,5 +60,14 @@ Item {
 			x: rectangle.width / 2
 			cursor: cursorTask === Navigation.CHANCE
         }
+
+		Task {
+			id: brendan
+			title: "BRENDAN MODE"
+			width: rectangle.width / 2
+			height: rectangle.height / 2
+			y: rectangle.height / 2
+			cursor: cursorTask === Navigation.BRENDAN
+		}
 	}
 }

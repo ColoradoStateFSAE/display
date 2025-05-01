@@ -22,6 +22,7 @@ class Navigation : public QObject {
 	void clutchChanged(int, int, int, int, int);
 	void chanceChanged(int);
 	void brightnessChanged(int);
+	void brendanChanged(int);
 
   public:
   	
@@ -46,7 +47,8 @@ class Navigation : public QObject {
 		AUTO_LAUNCH,
 
 		BRIGHTNESS,
-		CHANCE
+		CHANCE,
+		BRENDAN
 	};
 	Q_ENUM(State)
 
@@ -81,6 +83,7 @@ class Navigation : public QObject {
 	MenuItem settings = MenuItem(SETTINGS, 10, [&](){ current = &brightness; }).heading();
 	MenuItem brightness = MenuItem(BRIGHTNESS, 10, [&](){ setBrightness(); }, 0, 255);
 	MenuItem chance = MenuItem(CHANCE, 1, [&](){ setChance(); }, 0, 1);
+	MenuItem brendan = MenuItem(BRENDAN, 1, [&](){setBrendan(); }, 0, 1);
 	
 	MenuItem accelerometer = MenuItem(ACCELEROMETER, 0, [](){}).heading();
 
@@ -95,6 +98,7 @@ class Navigation : public QObject {
 	void setClutchPosition(int state=0);
 	void setBrightness();
 	void setChance();
+	void setBrendan();
 };
 
 #endif // NAVIGATION_H
