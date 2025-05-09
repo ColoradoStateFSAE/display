@@ -11,7 +11,7 @@ Item {
 		width: errorText.width + 34
 		height: errorText.height + 10
 
-		color: "#FF3A45"
+		color: "#45ff3a"
 		radius: 14
 
 		Text {
