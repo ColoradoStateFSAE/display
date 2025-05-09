@@ -17,6 +17,7 @@
 		<file>qml/Error/Estop.qml</file>
 		<file>qml/Error/ShiftingSystemOffline.qml</file>
 		<file>qml/Error/SteeringOffline.qml</file>
+		<file>qml/AutoShift.qml</file>
 		<file>qml/Guage.qml</file>
 		<file>qml/main.qml</file>
 		<file>qml/PanelLeft.qml</file>

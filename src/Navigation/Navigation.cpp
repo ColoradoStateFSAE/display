@@ -118,7 +118,7 @@ void Navigation::startUpdates() {
 
 void Navigation::frameReceived(const QCanBusFrame &frame) {
 	// Early return if the task switcher is inactive or a task is selected
-	if(!taskSwitcher || current->selected) return;
+	if(current->selected) return;
 
 	const uint8_t* data = reinterpret_cast<const uint8_t*>(frame.payload().constData());
 
@@ -153,6 +153,7 @@ void Navigation::frameReceived(const QCanBusFrame &frame) {
 }
 
 void Navigation::setBrightness() {
+
 }
 
 void Navigation::setChance() {

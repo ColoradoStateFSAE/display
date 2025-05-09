@@ -1,6 +1,8 @@
 import QtQuick 2.15
 
 Item {
+	property int brendan: 0
+
 	Connections {
 		target: viewModel
 		function onCoolantChanged(value) {
@@ -8,11 +10,22 @@ Item {
 		}
 
 		function onClutchChanged(value) {
-			clutchGuage.value = value;
+			if(brendan === 1) {
+				clutchGauge.value = value - 10;
+			}
+			else{
+				clutchGuage.value = value;
+			}
 		}
 
 		function onOilChanged(value) {
 			oilGuage.value = value / 6.89476;
+		}
+	}
+	Connections {
+		target: navigation
+		function onBrendanChanged(value) {
+			brendan = value;
 		}
 	}
 

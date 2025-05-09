@@ -29,21 +29,38 @@ Window {
 				taskSwitcherExit.running = true;
 			}
 		}
+		
+		function onChanceChanged(value) {
+			chance = value;
+		}
+
+		function onBrendanChanged(value) {
+			brendan = value;
+		}
+
+		function onClutchChanged(start, end, friction, position, autoLaunch) {
+			if (autoLaunch === 1) {
+				autoShift.visible = true;
+			}
+			else {
+				autoShift.visible = false;
+			}
+		}
 	}
 	
 	Connections {
 		target: viewModel
 		function onRpmChanged(value) {
-			if(brendan === 1){
-				tachometer.value = value*1.2;
+			if(brendan === 1) {
+				tachometer.value = value * 1.3;
 			}
-			else{
+			else {
 				tachometer.value = value;
 			}
 		}
 
 		function onGearChanged(value) {
-			if(chance === 0){
+			if(chance === 0) {
 				if(gear.value !== value) {
 					if(value > 0) {
 						gear.text = value;
@@ -69,7 +86,7 @@ Window {
 
 		function onlateralGChanged(value){
 			if (chance === 1){
-				gear.value = value;
+				gear.text = value;
 			}
 		}
 
@@ -189,11 +206,19 @@ Window {
 			anchors.horizontalCenter: parent.horizontalCenter
 			anchors.bottomMargin: 60
 		}
+
 		ETCError {
 			id: etcError
 			anchors.bottom: parent.bottom
 			anchors.horizontalCenter: parent.horizontalCenter
 			anchors.bottomMargin: 110
+		}
+
+		AutoShift {
+			id: autoShift
+			anchors.bottom: parent.bottom
+			anchors.horizontalCenter: parent.horizontalCenter
+			anchors.bottomMargin: 160
 		}
 	}
 
